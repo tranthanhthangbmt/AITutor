@@ -14,12 +14,13 @@ class DeepSeekAgent:
     
     def get_response(self, user_input):
         import streamlit as st
+        import json
 
         # 👉 In danh sách model
         try:
             models = self.client.models.list()
-            st.write("🔍 Available Models:")
-            st.write(models)
+            st.text("📦 Available Models (raw):")
+            st.text(json.dumps(models, indent=2, default=str))
         except Exception as e:
             st.error(f"Lỗi khi lấy danh sách models: {e}")
             return "Lỗi kết nối đến API"
