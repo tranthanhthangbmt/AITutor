@@ -13,6 +13,18 @@ class DeepSeekAgent:
         self.conversation_history = []
     
     def get_response(self, user_input):
+        import streamlit as st
+
+        # 👉 In danh sách model
+        try:
+            models = self.client.models.list()
+            st.write("🔍 Available Models:")
+            st.write(models)
+        except Exception as e:
+            st.error(f"Lỗi khi lấy danh sách models: {e}")
+            return "Lỗi kết nối đến API"
+    
+            
         self.conversation_history.append({"role": "user", "content": user_input})
         
         response = self.client.chat.completions.create(
