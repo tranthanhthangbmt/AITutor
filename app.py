@@ -1,29 +1,24 @@
 import streamlit as st
 from deepseek_agent import DeepSeekAgent
 
-# Cấu hình trang
-st.set_page_config(page_title="AI Assistant Lớp Học", page_icon="🤖")
-st.title("🤖 AI Assistant cho Lớp Học")
-st.write("Chat với trợ lý AI được tạo bằng DeepSeek")
+st.set_page_config(page_title="🤖 AI Agent", page_icon="🤖")
+st.title("🤖 Trợ lý AI với DeepSeek")
 
-# Khởi tạo agent (lưu trong session để không bị reset khi refresh)
+# Khởi tạo agent
 if "agent" not in st.session_state:
     st.session_state.agent = DeepSeekAgent()
     st.session_state.chat_history = []
 
-# Hiển thị lịch sử chat
-for message in st.session_state.chat_history:
-    with st.chat_message(message["role"]):
-        st.markdown(message["content"])
+# Hiển thị lịch sử
+for msg in st.session_state.chat_history:
+    with st.chat_message(msg["role"]):
+        st.markdown(msg["content"])
 
-# Xử lý input người dùng
-if prompt := st.chat_input("Nhập câu hỏi của bạn..."):
-    # Hiển thị tin nhắn người dùng
-    with st.chat_message("user"):
-        st.markdown(prompt)
+# Nhận input từ người dùng
+if prompt := st.chat_input("Hỏi AI..."):
+    st.chat_message("user").markdown(prompt)
     st.session_state.chat_history.append({"role": "user", "content": prompt})
-    
-    # Nhận phản hồi từ agent
+
     with st.chat_message("assistant"):
         response = st.session_state.agent.get_response(prompt)
         st.markdown(response)
