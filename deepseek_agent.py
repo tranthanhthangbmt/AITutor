@@ -7,10 +7,11 @@ load_dotenv()
 class DeepSeekAgent:
     def __init__(self):
         self.client = OpenAI(
-            api_key=os.getenv("OPENAI_API_KEY"),
+            api_key="sk-ad00e943675a42b3aaa69cacac812cae" #os.getenv("OPENAI_API_KEY"),
             base_url="https://api.deepseek.com/v1"
         )
         self.conversation_history = []
+        print("API Key:", os.getenv("OPENAI_API_KEY"))
     
     def get_response(self, user_input):
         self.conversation_history.append({"role": "user", "content": user_input})
