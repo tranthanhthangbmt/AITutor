@@ -11,7 +11,6 @@ class DeepSeekAgent:
             base_url="https://api.deepseek.com/v1"
         )
         self.conversation_history = []
-        print("API Key:", os.getenv("OPENAI_API_KEY"))
     
     def get_response(self, user_input):
         self.conversation_history.append({"role": "user", "content": user_input})
